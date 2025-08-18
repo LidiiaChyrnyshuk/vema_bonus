@@ -1,0 +1,437 @@
+/* --------fonts----------- */
+@font-face {
+	font-family: "DelaGothicOne";
+	src: url("../fonts/DelaGothicOne-Regular.ttf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "KodeMono";
+	src: url("../fonts/KodeMono-VariableFont_wght.ttf") format("opentype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Stolzl";
+	src: url("../fonts/stolzl_regular.otf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Stolzl";
+	src: url("../fonts/stolzl_medium.otf") format("opentype");
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Stolzl";
+	src: url("../fonts/stolzl_bold.otf") format("opentype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Stolzl";
+	src: url("../fonts/stolzl_light.otf") format("opentype");
+	font-weight: 200;
+	font-style: normal;
+}
+
+/* --------reset---------------- */
+* {
+	box-sizing: border-box;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+	padding: 0;
+}
+
+ul,
+ol {
+	margin: 0;
+
+	padding: 0;
+	list-style: none;
+}
+
+.button {
+	cursor: pointer;
+}
+
+label {
+	margin: 0;
+}
+
+input {
+	background: none;
+	outline: none;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* ----------------------------------------- */
+
+html {
+	scroll-behavior: smooth;
+	height: auto;
+	min-height: 100%;
+}
+body {
+	font-family: "Stolzl", sans-serif;
+	color: #ffffff;
+	position: relative;
+	width: 100vw;
+	height: auto;
+	min-height: 100dvh;
+	max-height: 1226px;
+	overflow-x: hidden;
+	background: linear-gradient(0deg, #1a1a1e, #1a1a1e),
+		linear-gradient(90.6deg, #1a1a1e 0.42%, #292a2e 49.61%, #1a1a1e 99.38%);
+	margin: 0;
+}
+
+body::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 2;
+	background-image:	url(../images/bg-img.webp);
+	opacity: 1;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+/* ----------accent------------ */
+
+.left-accent {
+	display: none;
+}
+.right-accent {
+	display: none;
+}
+@media screen and (min-width:1020px) {
+	.left-accent {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 72.83vw;
+	height: 51.41vw;
+}
+.right-accent {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 70.54vw;
+	height: 67.5vw;
+}
+}
+
+/* -----------main------------- */
+.container {
+	position: relative;
+	width: 100%;
+	max-width: 3000px;
+	height: auto;
+	min-height: 100dvh;
+	margin: 0 auto;
+	padding-top: 46px;
+	overflow: hidden;
+}
+@media screen and (min-width: 1020px) {
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding-top: 60px;
+	}
+}
+
+.header {
+	width: 100%;
+	max-width: 2400px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	z-index: 3;
+	margin-bottom: 100px;
+}
+@media screen and (min-width: 1020px) {
+.header {
+	margin-bottom: 192px;
+}
+}
+
+.logo {
+	width: 54.43vw;
+	max-width: 418px;
+	height: 6.09vw;
+	max-height: 48px;
+}
+@media screen and (min-width: 1020px) {
+	.logo {
+		width: 418px;
+		height: 48px;
+	}
+}
+
+.title-wrap {
+	width: 328px;
+	height: 118px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+		margin-right: auto;
+	margin-left: auto;
+}
+@media screen and (min-width: 1020px) {
+	.title-wrap {
+		width: 1026px;
+		height: 238px;
+	}
+}
+
+.title {
+	font-family: "DelaGothicOne";
+font-weight: 400;
+font-style: normal;
+font-size: 24px;
+line-height: 120%;
+text-align: center;
+text-transform: uppercase;
+color: rgba(0, 255, 134, 1);
+margin-bottom: 24px;
+}
+
+.title-accent {
+		font-family: "DelaGothicOne";
+font-weight: 400;
+font-style: normal;
+font-size: 24px;
+line-height: 120%;
+text-align: center;
+text-transform: uppercase;
+color: rgba(255, 255, 255, 1);
+}
+
+.main {
+	position: relative;
+	z-index: 8;
+	width: 100%;
+	height: auto;
+}
+@media screen and (min-width: 1020px) {
+	.main {
+		max-width: 2400px;
+		height: 1080px;
+	}
+}
+
+
+.hero {
+	position: relative;
+	width: 300px;
+	height: 290px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	margin-right: auto;
+	margin-left: auto;
+	z-index: 100;
+}
+@media screen and (min-width: 1020px) {
+	.hero {
+		width: 992px;
+		height: 700px;
+	}
+}
+
+.timer-wrap {
+	width: 296px;
+	height: 76px;
+	padding-top: 16px;
+	padding-right: 24px;
+	padding-bottom: 16px;
+	padding-left: 24px;
+	border-radius: 24px;
+	border-width: 1px;
+	background: linear-gradient(86.65deg, #00ed7c 0%, #49f1ca 99.98%);
+	border-image-source: linear-gradient(
+		0deg,
+		#238d67 0%,
+		rgba(255, 255, 255, 0.64) 100%
+	);
+}
+
+@media screen and (min-width: 1020px) {
+	.timer-wrap {
+		width: 774px;
+		height: 173px;
+		padding-top: 32px;
+		padding-right: 64px;
+		padding-bottom: 32px;
+		padding-left: 64px;
+		border-radius: 56px;
+		border-width: 2px;
+	}
+}
+
+.timer {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 4px;
+}
+@media screen and (min-width: 1020px) {
+	.timer {
+		gap: 8px;
+	}
+}
+
+.time {
+	display: flex;
+	flex-direction: column;
+	width: 32px;
+}
+
+@media screen and (min-width: 1020px) {
+	.time {
+		width: 104px;
+	}
+}
+
+.time-part {
+	font-family: "KodeMono";
+	font-weight: 700;
+	font-size: 26px;
+	line-height: 26px;
+	color: #292a2e;
+	font-variant-numeric: tabular-nums;
+}
+
+@media screen and (min-width: 1020px) {
+	.time-part {
+		font-size: 86px;
+		line-height: 86px;
+	}
+}
+
+.label {
+	font-family: "DelaGothicOne";
+	font-weight: 400;
+	font-size: 6px;
+	line-height: 1.1;
+	text-align: center;
+	text-transform: uppercase;
+	color: #292a2e52;
+}
+
+@media screen and (min-width: 1020px) {
+	.label {
+		font-size: 16px;
+	}
+}
+@media screen and (min-width: 1020px) {
+	.mobile-break {
+		display: none;
+	}
+}
+
+.colon {
+	user-select: none;
+	font-family: "KodeMono";
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 26px;
+	color: #292a2e52;
+}
+
+@media screen and (min-width: 1020px) {
+	.colon {
+		font-size: 86px;
+		line-height: 86px;
+	}
+}
+
+.hero-cta {
+	width: 240px;
+	height: 54px;
+	padding-top: 16px;
+	padding-right: 32px;
+	padding-bottom: 16px;
+	padding-left: 32px;
+	border-radius: 16px;
+	border: 4px solid rgba(255, 255, 255, 0.32);
+	overflow: hidden;
+	background: linear-gradient(180deg, #44ffa6 0%, #00dc74 100%);
+	font-family: "Stolzl";
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 1.1;
+	cursor: pointer;
+	text-transform: uppercase;
+	text-align: center;
+	color: #292a2e;
+	margin-top: 32px;
+	box-shadow: 0px 4px 24px 0px #000000a3, 0px 0px 48px 0px #36ffa080,
+		0px 0px 12px 0px #36ffa0cc;
+		  animation: pulse 1.5s ease-in-out infinite;
+transition: transform 0.2s;
+}
+
+@media screen and (min-width: 1020px) {
+	.hero-cta {
+		width: 320px;
+		height: 96px;
+		padding-top: 24px;
+		padding-right: 32px;
+		padding-bottom: 24px;
+		padding-left: 32px;
+		border-radius: 24px;
+		font-size: 40px;
+		margin-top: 56px;
+	}
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 #36ffa080;
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 5px #36ffa080;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 #36ffa080;
+  }
+}
