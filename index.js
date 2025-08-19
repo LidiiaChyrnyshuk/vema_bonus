@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			minutesEl.textContent = "00";
 			secondsEl.textContent = "00";
 			hundredthsEl.textContent = "00";
-
 			return;
 		}
 
