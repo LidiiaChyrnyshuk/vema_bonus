@@ -1,5 +1,12 @@
 /* --------fonts----------- */
 @font-face {
+	font-family: "Syncopate";
+	src: url("../fonts/Syncopate-Bold.ttf") format("opentype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
 	font-family: "DelaGothicOne";
 	src: url("../fonts/DelaGothicOne-Regular.ttf") format("opentype");
 	font-weight: 400;
@@ -96,19 +103,21 @@ a {
 html {
 	scroll-behavior: smooth;
 	height: auto;
-	min-height: 100%;
+	min-height: 100dvh;
 }
+
 body {
-	font-family: "Stolzl", sans-serif;
+	font-family: "DelaGothicOne", sans-serif;
 	color: #ffffff;
 	position: relative;
 	width: 100vw;
 	height: auto;
 	min-height: 100dvh;
-	max-height: 1226px;
+	/* max-height: 1226px; */
 	overflow-x: hidden;
 	background: linear-gradient(0deg, #1a1a1e, #1a1a1e),
-		linear-gradient(90.6deg, #1a1a1e 0.42%, #292a2e 49.61%, #1a1a1e 99.38%);
+		linear-gradient(90.6deg, #1a1a1e 0.42%, #292a2e 49.9%, #1a1a1e 99.38%),
+		linear-gradient(180deg, #0b2c30 0%, #020d0e 100%);
 	margin: 0;
 }
 
@@ -118,7 +127,7 @@ body::after {
 	inset: 0;
 	pointer-events: none;
 	z-index: 2;
-	background-image:	url(../images/bg-img.webp);
+	background-image: url(../images/pattern.webp);
 	opacity: 1;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -132,23 +141,25 @@ body::after {
 .right-accent {
 	display: none;
 }
-@media screen and (min-width:1020px) {
+@media screen and (min-width: 650px) {
 	.left-accent {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 72.83vw;
-	height: 51.41vw;
-}
-.right-accent {
-	display: block;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 70.54vw;
-	height: 67.5vw;
-}
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 42.83vw;
+		height: 25.41vw;
+		z-index: 5;
+	}
+	.right-accent {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 50.54vw;
+		height: 47.5vw;
+		z-index: 5;
+	}
 }
 
 /* -----------main------------- */
@@ -161,8 +172,12 @@ body::after {
 	margin: 0 auto;
 	padding-top: 46px;
 	overflow: hidden;
+			display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 }
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -183,22 +198,36 @@ body::after {
 	z-index: 3;
 	margin-bottom: 100px;
 }
-@media screen and (min-width: 1020px) {
-.header {
-	margin-bottom: 192px;
-}
+@media screen and (min-width: 1440px) {
+	.header {
+		margin-bottom: 192px;
+	}
 }
 
 .logo {
-	width: 54.43vw;
-	max-width: 418px;
-	height: 6.09vw;
-	max-height: 48px;
+	width: 172px;
+	height: 20px;
 }
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.logo {
 		width: 418px;
 		height: 48px;
+	}
+}
+
+.main {
+	position: relative;
+	z-index: 8;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+@media screen and (min-width: 1440px) {
+	.main {
+		max-width: 2400px;
 	}
 }
 
@@ -209,10 +238,10 @@ body::after {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-		margin-right: auto;
+	margin-right: auto;
 	margin-left: auto;
 }
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.title-wrap {
 		width: 1026px;
 		height: 238px;
@@ -221,62 +250,69 @@ body::after {
 
 .title {
 	font-family: "DelaGothicOne";
-font-weight: 400;
-font-style: normal;
-font-size: 24px;
-line-height: 120%;
-text-align: center;
-text-transform: uppercase;
-color: rgba(0, 255, 134, 1);
-margin-bottom: 24px;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 120%;
+	text-align: center;
+	text-transform: uppercase;
+	color: rgba(0, 255, 134, 1);
+	margin-bottom: 24px;
+}
+@media screen and (min-width: 1440px) {
+	.title {
+		font-size: 64px;
+		letter-spacing: 2%;
+	}
 }
 
 .title-accent {
-		font-family: "DelaGothicOne";
-font-weight: 400;
-font-style: normal;
-font-size: 24px;
-line-height: 120%;
-text-align: center;
-text-transform: uppercase;
-color: rgba(255, 255, 255, 1);
+	font-family: "DelaGothicOne";
+	font-weight: 400;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 120%;
+	text-align: center;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 1);
 }
-
-.main {
-	position: relative;
-	z-index: 8;
-	width: 100%;
-	height: auto;
-}
-@media screen and (min-width: 1020px) {
-	.main {
-		max-width: 2400px;
-		height: 1080px;
+@media screen and (min-width: 1440px) {
+	.title-accent {
+		font-size: 64px;
+		letter-spacing: 2%;
 	}
 }
 
+.title-bonus {
+	font-family: "Syncopate";
+	font-weight: 700;
+	font-style: normal;
+	font-size: 18px;
+	line-height: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	color: rgba(0, 255, 134, 1);
+	margin-bottom: 30px;
+}
+@media screen and (min-width: 1440px) {
+	.title-bonus {
+		font-size: 64px;
+		margin-bottom: 40px;
+	}
+}
 
 .hero {
-	position: relative;
-	width: 300px;
-	height: 290px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: center;
 	margin-right: auto;
 	margin-left: auto;
-	z-index: 100;
-}
-@media screen and (min-width: 1020px) {
-	.hero {
-		width: 992px;
-		height: 700px;
-	}
+	margin-bottom: 30px;
 }
 
 .timer-wrap {
-	width: 296px;
+	width: 248px;
 	height: 76px;
 	padding-top: 16px;
 	padding-right: 24px;
@@ -291,9 +327,10 @@ color: rgba(255, 255, 255, 1);
 		rgba(255, 255, 255, 0.64) 100%
 	);
 }
-
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.timer-wrap {
+		position: relative;
+		z-index: 10;
 		width: 774px;
 		height: 173px;
 		padding-top: 32px;
@@ -311,7 +348,7 @@ color: rgba(255, 255, 255, 1);
 	align-items: flex-start;
 	gap: 4px;
 }
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.timer {
 		gap: 8px;
 	}
@@ -322,8 +359,7 @@ color: rgba(255, 255, 255, 1);
 	flex-direction: column;
 	width: 32px;
 }
-
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.time {
 		width: 104px;
 	}
@@ -337,8 +373,7 @@ color: rgba(255, 255, 255, 1);
 	color: #292a2e;
 	font-variant-numeric: tabular-nums;
 }
-
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.time-part {
 		font-size: 86px;
 		line-height: 86px;
@@ -354,13 +389,13 @@ color: rgba(255, 255, 255, 1);
 	text-transform: uppercase;
 	color: #292a2e52;
 }
-
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.label {
 		font-size: 16px;
 	}
 }
-@media screen and (min-width: 1020px) {
+
+@media screen and (min-width: 1440px) {
 	.mobile-break {
 		display: none;
 	}
@@ -374,8 +409,7 @@ color: rgba(255, 255, 255, 1);
 	line-height: 26px;
 	color: #292a2e52;
 }
-
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.colon {
 		font-size: 86px;
 		line-height: 86px;
@@ -383,6 +417,8 @@ color: rgba(255, 255, 255, 1);
 }
 
 .hero-cta {
+	position: relative;
+	z-index: 70;
 	width: 240px;
 	height: 54px;
 	padding-top: 16px;
@@ -393,23 +429,28 @@ color: rgba(255, 255, 255, 1);
 	border: 4px solid rgba(255, 255, 255, 0.32);
 	overflow: hidden;
 	background: linear-gradient(180deg, #44ffa6 0%, #00dc74 100%);
-	font-family: "Stolzl";
+	font-family: "Stolzl", sans-serif;
 	font-weight: 700;
+	font-style: normal;
 	font-size: 18px;
 	line-height: 1.1;
 	cursor: pointer;
 	text-transform: uppercase;
 	text-align: center;
 	color: #292a2e;
+		margin-right: auto;
+	margin-left: auto;
 	margin-top: 32px;
+	margin-bottom: 206px;
 	box-shadow: 0px 4px 24px 0px #000000a3, 0px 0px 48px 0px #36ffa080,
 		0px 0px 12px 0px #36ffa0cc;
-		  animation: pulse 1.5s ease-in-out infinite;
-transition: transform 0.2s;
+	animation: pulse 1.5s ease-in-out infinite;
+	transition: transform 0.2s;
 }
-
-@media screen and (min-width: 1020px) {
+@media screen and (min-width: 1440px) {
 	.hero-cta {
+		position: relative;
+		z-index: 70;
 		width: 320px;
 		height: 96px;
 		padding-top: 24px;
@@ -419,19 +460,44 @@ transition: transform 0.2s;
 		border-radius: 24px;
 		font-size: 40px;
 		margin-top: 56px;
+		margin-bottom: 233px;
 	}
 }
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 #36ffa080;
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 5px #36ffa080;
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 #36ffa080;
-  }
+	0% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 #36ffa080;
+	}
+	50% {
+		transform: scale(1.05);
+		box-shadow: 0 0 0 5px #36ffa080;
+	}
+	100% {
+		transform: scale(1);
+		box-shadow: 0 0 0 0 #36ffa080;
+	}
+}
+
+.hero-img-mob {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.hero-img-desk {
+	display: none;
+}
+
+@media screen and (min-width: 650px) {
+	.hero-img-mob {
+		display: none;
+	}
+	.hero-img-desk {
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		z-index: 15;
+	}
 }
