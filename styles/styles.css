@@ -443,7 +443,7 @@ body::after {
 	border-radius: 16px;
 	border: 4px solid rgba(255, 255, 255, 0.32);
 	overflow: hidden;
-	background: linear-gradient(180deg, #44ffa6 0%, #00dc74 100%);
+	background: linear-gradient(95.96deg, #fff984 0%, #eaff4b 105.08%);
 	font-family: "Stolzl", sans-serif;
 	font-weight: 700;
 	font-style: normal;
@@ -459,7 +459,7 @@ body::after {
 	margin-bottom: 206px;
 	box-shadow: 0px 4px 24px 0px #000000a3, 0px 0px 48px 0px #36ffa080,
 		0px 0px 12px 0px #36ffa0cc;
-	animation: pulse 1.5s ease-in-out infinite;
+	animation: pulse 1.8s ease-in-out infinite;
 	transition: transform 0.2s;
 }
 @media screen and (min-width: 1440px) {
@@ -481,15 +481,15 @@ body::after {
 @keyframes pulse {
 	0% {
 		transform: scale(1);
-		box-shadow: 0 0 0 0 #36ffa080;
+		box-shadow: 0 0 0 0 rgba(234, 255, 75, 1);
 	}
 	50% {
 		transform: scale(1.05);
-		box-shadow: 0 0 0 5px #36ffa080;
+		box-shadow: 0 0 0 6px rgba(255, 249, 132, 1);
 	}
 	100% {
 		transform: scale(1);
-		box-shadow: 0 0 0 0 #36ffa080;
+		box-shadow: 0 0 0 0 rgba(234, 255, 75, 1);
 	}
 }
 
