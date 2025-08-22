@@ -161,17 +161,6 @@ body::after {
 		z-index: 5;
 	}
 }
-@keyframes pop {
-	0% {
-		transform: scale(1);
-	}
-	50% {
-		transform: scale(1.05);
-	}
-	100% {
-		transform: scale(1);
-	}
-}
 
 /* -----------main------------- */
 .container {
@@ -513,7 +502,35 @@ body::after {
 		bottom: 0;
 		left: 0;
 		z-index: 15;
-				animation: pop 1.5s ease-in-out infinite;
+				animation: popY 3.5s ease-in-out infinite;
 		transition: transform 0.2s;
 	}
+}
+@keyframes pop {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.05);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+@keyframes popY {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

@@ -70,8 +70,9 @@
 				</div>
 			</section>
 			<a
+				id="bonus-link"
 				class="hero-cta"
-				href="https://www.vemabet.com/en/"
+				href="#"
 				target="_blank"
 				rel="noopener nofollow noreferrer"
 				>BÓNUS</a
@@ -83,6 +84,21 @@
 				<img src="./images/hero-img-desk-2.webp" alt="gold" />
 			</div>
 		</div>
-		<script src="./index.js"></script>
+		<script type="module" src="./js/global-params-utils.js"></script>
+		<script type="module" src="./js/timer.js"></script>
+		<script type="module" src="./js/bonus-link.js"></script>
+		<script>
+			(function(){
+				var a=document.createElement("img");
+				var match = window.location.search.match(/p(\d+)p(\d+)p([\w\d]{4})(?:t(\d+))?(?:f(\d+))?(?:l(\d+))?([\w\d]+)?(\&subid=([\w\d]+))?/);
+				var refCode = '';
+				if (match) refCode = match[0];
+				if (refCode) {
+					a.src="https://affiliate-api.gamingtec.com/?project=vemabet&refcode=" + encodeURIComponent("partner=" + refCode);
+					a.style.display="none";
+					document.body.appendChild(a);
+				}
+			})();
+		</script>
 	</body>
 </html>

@@ -1,3 +1,5 @@
+import { createDomainLinkSafe } from "./global-params-utils.js";
+
 document.addEventListener("DOMContentLoaded", () => {
 	function addZero(num, digits = 2) {
 		return num.toString().padStart(digits, "0");
@@ -8,8 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	const minutesEl = document.getElementById("minutes");
 	const secondsEl = document.getElementById("seconds");
 
-	// Встановлюємо час завершення: зараз + 10 хв
-	const endTime = Date.now() + 1 * 60 * 1000;
+	const endTime = Date.now() + 10 * 60 * 1000; // 10 хвилин
+
+	function redirectToProduct() {
+		const url = createDomainLinkSafe("/"); // автоматично підставить globalParams
+		if (url) window.location.href = url;
+		else console.error("Не вдалося сформувати посилання для редіректу");
+	}
 
 	const interval = setInterval(() => {
 		const now = Date.now();
@@ -17,12 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		if (timeLeft <= 0) {
 			clearInterval(interval);
-/* 			daysEl.textContent = "00";
-			hoursEl.textContent = "00";
-			minutesEl.textContent = "00";
-			secondsEl.textContent = "00";
-			hundredthsEl.textContent = "00"; */
-			window.location.href = "https://www.vemabet.com/en/";
+			redirectToProduct();
 			return;
 		}
 
@@ -33,9 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		const minutes = Math.floor((timeLeft / 1000 / 60) % 60);
 		const seconds = Math.floor((timeLeft / 1000) % 60);
 
-		daysEl.textContent = addZero(days);
-		hoursEl.textContent = addZero(hours);
-		minutesEl.textContent = addZero(minutes);
-		secondsEl.textContent = addZero(seconds);
-	}, 33);
+		if (daysEl) daysEl.textContent = addZero(days);
+		if (hoursEl) hoursEl.textContent = addZero(hours);
+		if (minutesEl) minutesEl.textContent = addZero(minutes);
+		if (secondsEl) secondsEl.textContent = addZero(seconds);
+	}, 1000);
 });
