@@ -24,12 +24,20 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="left-accent">
+					<video autoplay muted loop class="video-background">
+			<source src="./video/Fomo land _mob_ohne logo.mp4" type="video/mp4" />
+			Ваш браузер не підтримує відео.
+		</video>
+				<video autoplay muted loop class="video-background-desk">
+			<source src="./video/Fomo land _ VM Desktop_1440px_ohne logo.mp4" type="video/mp4" />
+			Ваш браузер не підтримує відео.
+		</video>
+			<!-- 			<div class="left-accent">
 				<img src="./images/left-coins.webp" alt="coins" />
 			</div>
 			<div class="right-accent">
 				<img src="./images/right-coins.webp" alt="coins" />
-			</div>
+			</div> -->
 			<header class="header">
 				<div>
 					<img class="logo" src="./images/Logo.svg" alt="logo" />
@@ -72,30 +80,35 @@
 			<a
 				id="bonus-link"
 				class="hero-cta"
+				data-redirect
 				href="#"
 				target="_blank"
-				rel="noopener nofollow noreferrer"
+				rel="noopener noreferrer"
 				>BÓNUS</a
 			>
-			<div class="hero-img-mob">
+			<!-- <div class="hero-img-mob">
 				<img src="./images/hero-img-mob-2.webp" alt="gold" />
 			</div>
 			<div class="hero-img-desk">
 				<img src="./images/hero-img-desk-2.webp" alt="gold" />
-			</div>
+			</div> -->
 		</div>
 		<script type="module" src="./js/global-params-utils.js"></script>
 		<script type="module" src="./js/timer.js"></script>
 		<script type="module" src="./js/bonus-link.js"></script>
 		<script>
-			(function(){
-				var a=document.createElement("img");
-				var match = window.location.search.match(/p(\d+)p(\d+)p([\w\d]{4})(?:t(\d+))?(?:f(\d+))?(?:l(\d+))?([\w\d]+)?(\&subid=([\w\d]+))?/);
-				var refCode = '';
+			(function () {
+				var a = document.createElement("img");
+				var match = window.location.search.match(
+					/p(\d+)p(\d+)p([\w\d]{4})(?:t(\d+))?(?:f(\d+))?(?:l(\d+))?([\w\d]+)?(\&subid=([\w\d]+))?/
+				);
+				var refCode = "";
 				if (match) refCode = match[0];
 				if (refCode) {
-					a.src="https://affiliate-api.gamingtec.com/?project=vemabet&refcode=" + encodeURIComponent("partner=" + refCode);
-					a.style.display="none";
+					a.src =
+						"https://affiliate-api.gamingtec.com/?project=vemabet&refcode=" +
+						encodeURIComponent("partner=" + refCode);
+					a.style.display = "none";
 					document.body.appendChild(a);
 				}
 			})();

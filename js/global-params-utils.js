@@ -1,5 +1,5 @@
-export const DOMAIN_NOT_DEFINED = "DOMAIN_NOT_DEFINED";
-export const UNDEFINED_ERROR = "UNDEFINED_ERROR";
+export const DOMAIN_NOT_DEFINED = new Error("DOMAIN_NOT_DEFINED");
+export const UNDEFINED_ERROR = new Error("UNDEFINED_ERROR");
 
 // Глобальні параметри
 export const getGlobalParams = () => {
@@ -11,7 +11,7 @@ export const getGlobalParams = () => {
 };
 
 // Генерує посилання з урахуванням параметрів
-export const createDomainLink = (path) => {
+/* export const createDomainLink = (path) => {
 	const gp = getGlobalParams();
 	const domain = gp?.DOMAIN;
 	if (!domain) throw new Error(DOMAIN_NOT_DEFINED);
@@ -29,6 +29,48 @@ export const createDomainLink = (path) => {
 	}
 
 	return url.toString();
+}; */
+
+// Генерує посилання з урахуванням параметрів
+export const createDomainLink = (path = "/") => {
+	const gp = getGlobalParams();
+	const domain = gp?.DOMAIN;
+	if (!domain) throw DOMAIN_NOT_DEFINED;
+
+	// якщо в глобальних параметрах є дзеркало (DL) — використовуємо його замість path
+	const basePath = gp?.DL
+		? "/" + gp.DL.replace(/^\/+/, "")
+		: path;
+
+	const url = new URL(basePath, domain);
+
+	// 1. додаємо ВСІ параметри з поточного урла
+	const currentParams = new URLSearchParams(window.location.search);
+	currentParams.forEach((value, key) => {
+		url.searchParams.set(key, value);
+	});
+
+	// 2. глобальні параметри (пріоритетні)
+	if (gp) {
+		Object.entries(gp).forEach(([key, value]) => {
+			if (value == null) return;
+			switch (key) {
+				case "DOMAIN":
+				case "DL":
+					break; 
+				case "TRACK":
+					url.searchParams.set("track_id", value);
+					break;
+				case "PID":
+					url.searchParams.set("pid", value);
+					break;
+				default:
+					url.searchParams.set(key.toLowerCase(), value);
+			}
+		});
+	}
+
+	return url.toString();
 };
 
 export const createDomainLinkSafe = (path) => {
@@ -43,7 +85,7 @@ export const createDomainLinkSafe = (path) => {
 export const getApiConfiguration = async () => {
 	const gp = getGlobalParams();
 	const domain = gp?.DOMAIN;
-	if (!domain) throw new Error(DOMAIN_NOT_DEFINED);
+	if (!domain) throw DOMAIN_NOT_DEFINED;
 
 	const response = await fetch(
 		new URL("/api/v1/configuration", domain).toString(),
@@ -52,38 +94,33 @@ export const getApiConfiguration = async () => {
 			headers: { "Content-Type": "application/json" },
 		}
 	);
+	if (!response.ok) throw new Error("FAILED_TO_FETCH_API_CONFIG");
 	return await response.json();
 };
 
 // Auth конфігурація
 export async function getAuthConfiguration() {
 	const gp = getGlobalParams();
-	const domain = gp && gp.DOMAIN;
+	const domain = gp?.DOMAIN;
 
-	if (!domain) {
-		throw ["DOMAIN_NOT_DEFINED"];
-	}
+	if (!domain) throw DOMAIN_NOT_DEFINED;
 
 	const url = new URL("/api/v1/configuration/auth", domain).toString();
 
 	const response = await fetch(url, {
 		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		},
+		headers: { "Content-Type": "application/json" },
 	});
 
-	if (!response.ok) {
-		throw ["FAILED_TO_FETCH_AUTH_CONFIG"];
-	}
+	if (!response.ok) throw new Error("FAILED_TO_FETCH_AUTH_CONFIG");
 
 	const config = await response.json();
 	const captchaConfig = config.captchaConfiguration;
 
-	if (captchaConfig && captchaConfig.providerName) {
+	if (captchaConfig?.providerName) {
 		const validProviders = ["GOOGLE", "CLOUD_FLARE"];
 		if (!validProviders.includes(captchaConfig.providerName)) {
-			throw [new Error("INVALID_CAPTCHA_PROVIDER")];
+			throw new Error("INVALID_CAPTCHA_PROVIDER");
 		}
 	}
 
@@ -98,16 +135,14 @@ export const getRedirectLink = () => {
 
 export const redirectToTDS = () => {
 	const link = getRedirectLink();
-	if (link) {
-		window.location.href = link;
-	}
+	if (link) window.location.href = link;
 };
 
 // Надіслати запит на реєстрацію
 export const sendRegistration = ({ email, password, captcha }) => {
 	const gp = getGlobalParams();
 	const domain = gp?.DOMAIN;
-	if (!domain) return Promise.reject([DOMAIN_NOT_DEFINED]);
+	if (!domain) return Promise.reject(DOMAIN_NOT_DEFINED);
 
 	const data = {
 		email,
@@ -121,42 +156,40 @@ export const sendRegistration = ({ email, password, captcha }) => {
 		param4: gp?.PARAM4 ?? null,
 	};
 
-	return new Promise((resolve, reject) => {
-		fetch(
-			new URL(
-				`/api/v3/auth/register/partners?captcha-response=${captcha}`,
-				domain
-			).toString(),
-			{
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(data),
+	return fetch(
+		new URL(`/api/v3/auth/register/partners?captcha-response=${captcha}`, domain)
+			.toString(),
+		{
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data),
+		}
+	)
+		.then((res) => res.json())
+		.then((data) => {
+			if (data.trueplayTokenName) {
+				return { token: data.trueplayTokenName, type: "trueplayTokenName" };
+			} else if (data.playerToken) {
+				return { token: data.playerToken, type: "playerToken" };
+			} else if (data.errors) {
+				throw new Error(data.errors.join(", "));
+			} else {
+				throw UNDEFINED_ERROR;
 			}
-		)
-			.then((res) => res.json())
-			.then((data) => {
-				if (data.trueplayTokenName) {
-					resolve({ token: data.trueplayTokenName, type: "trueplayTokenName" });
-				} else if (data.playerToken) {
-					resolve({ token: data.playerToken, type: "playerToken" });
-				} else if (data.errors) {
-					reject(data.errors);
-				} else {
-					reject([UNDEFINED_ERROR]);
-				}
-			})
-			.catch(() => reject([new Error(UNDEFINED_ERROR)]));
-	});
+		})
+		.catch(() => {
+			throw UNDEFINED_ERROR;
+		});
 };
 
 // Редірект до авторизації
 export const redirectToAuth = ({ token, type }) => {
 	const gp = getGlobalParams();
 	const domain = gp?.DOMAIN;
-	if (!domain) throw [new Error(DOMAIN_NOT_DEFINED)];
+	if (!domain) throw DOMAIN_NOT_DEFINED;
 
-	let deeplink = gp?.DL ?? "/";
-	deeplink = encodeURIComponent("/" + deeplink.replace(/^\/+/, ""));
+	let deeplink = gp?.DL ? "/" + gp.DL.replace(/^\/+/, "") : "/";
+	deeplink = encodeURIComponent(deeplink);
 
 	const url = new URL(
 		`/api/v3/auth/partners-player-entry?${type}=${token}&deeplink=${deeplink}`,
@@ -168,28 +201,22 @@ export const redirectToAuth = ({ token, type }) => {
 
 // Реєстраційний процес з обробкою помилок і редіректом
 export const registrationProcess = async ({ email, password, captcha }) => {
-	const result = await sendRegistration({ email, password, captcha }).catch(
-		(reason) => {
-			const errors = Array.isArray(reason) ? reason : [];
+	try {
+		const result = await sendRegistration({ email, password, captcha });
+		redirectToAuth(result);
+	} catch (error) {
+		const redirectErrors = [
+			"EMAIL_ALREADY_TAKEN",
+			"PHONE_NUMBER_TAKEN",
+			"COUNTRY_RESTRICTED",
+			UNDEFINED_ERROR.message,
+			DOMAIN_NOT_DEFINED.message,
+		];
 
-			const redirectErrors = [
-				"EMAIL_ALREADY_TAKEN",
-				"PHONE_NUMBER_TAKEN",
-				"COUNTRY_RESTRICTED",
-				UNDEFINED_ERROR,
-				DOMAIN_NOT_DEFINED,
-			];
-
-			if (
-				!Array.isArray(reason) ||
-				errors.some((err) => redirectErrors.includes(err))
-			) {
-				redirectToTDS();
-			}
-
-			throw reason;
+		if (!error || redirectErrors.some((err) => error.message?.includes(err))) {
+			redirectToTDS();
 		}
-	);
 
-	redirectToAuth(result);
+		throw error;
+	}
 };
