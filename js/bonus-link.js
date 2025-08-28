@@ -5,5 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	links.forEach((link) => {
 		const url = createDomainLinkSafe("/");
 		if (url) link.href = url;
+		else console.error("Не вдалося сформувати посилання для редіректу");
 	});
 });

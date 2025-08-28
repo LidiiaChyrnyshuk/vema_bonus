@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const minutesEl = document.getElementById("minutes");
 	const secondsEl = document.getElementById("seconds");
 
-	const endTime = Date.now() + 3 * 60 * 1000; // 10 хвилин
+	const endTime = Date.now() + 3 * 60 * 1000; 
 
 	function redirectToProduct() {
 		const url = createDomainLinkSafe("/"); // автоматично підставить globalParams
