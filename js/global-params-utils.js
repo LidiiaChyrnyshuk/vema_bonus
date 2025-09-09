@@ -11,7 +11,7 @@ export const getGlobalParams = () => {
 };
 
 // Генерує посилання з урахуванням параметрів
-/* export const createDomainLink = (path) => {
+export const createDomainLink = (path) => {
 	const gp = getGlobalParams();
 	const domain = gp?.DOMAIN;
 	if (!domain) throw new Error(DOMAIN_NOT_DEFINED);
@@ -26,48 +26,6 @@ export const getGlobalParams = () => {
 	if (gp?.DL) {
 		const redirect = "/" + gp.DL.replace(/^\/+/, "");
 		url.searchParams.set("redirect", encodeURIComponent(redirect));
-	}
-
-	return url.toString();
-}; */
-
-// Генерує посилання з урахуванням параметрів
-export const createDomainLink = (path = "/") => {
-	const gp = getGlobalParams();
-	const domain = gp?.DOMAIN;
-	if (!domain) throw DOMAIN_NOT_DEFINED;
-
-	// якщо в глобальних параметрах є дзеркало (DL) — використовуємо його замість path
-	const basePath = gp?.DL
-		? "/" + gp.DL.replace(/^\/+/, "")
-		: path;
-
-	const url = new URL(basePath, domain);
-
-	// 1. додаємо ВСІ параметри з поточного урла
-	const currentParams = new URLSearchParams(window.location.search);
-	currentParams.forEach((value, key) => {
-		url.searchParams.set(key, value);
-	});
-
-	// 2. глобальні параметри (пріоритетні)
-	if (gp) {
-		Object.entries(gp).forEach(([key, value]) => {
-			if (value == null) return;
-			switch (key) {
-				case "DOMAIN":
-				case "DL":
-					break; 
-				case "TRACK":
-					url.searchParams.set("track_id", value);
-					break;
-				case "PID":
-					url.searchParams.set("pid", value);
-					break;
-				default:
-					url.searchParams.set(key.toLowerCase(), value);
-			}
-		});
 	}
 
 	return url.toString();

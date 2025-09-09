@@ -1,10 +1,17 @@
-import { createDomainLinkSafe } from "./global-params-utils.js";
+function generateBonusLink() {
+	const link = document.getElementById("bonus-link");
+	if (!link) return;
 
-document.addEventListener("DOMContentLoaded", () => {
-	const links = document.querySelectorAll("a[data-redirect]");
-	links.forEach((link) => {
-		const url = createDomainLinkSafe("/");
-		if (url) link.href = url;
-		else console.error("Не вдалося сформувати посилання для редіректу");
-	});
-});
+	const match = window.location.search.match(
+		/p(\d+)p(\d+)p([\w\d]{4})(?:t(\d+))?(?:f(\d+))?(?:l(\d+))?([\w\d]+)?(\&subid=([\w\d]+))?/
+	);
+
+	let newSearch = window.location.search;
+	if (match && match[0] && !window.location.search.includes("partner=")) {
+		newSearch = window.location.search.replace(match[0], "partner=" + match[0]);
+	}
+
+	const baseUrl = window.__REDIRECT_LINK || "https://vb.staaqwe.com/pt";
+	link.setAttribute("href", baseUrl + newSearch + "#registration");
+	return link.getAttribute("href");
+}
