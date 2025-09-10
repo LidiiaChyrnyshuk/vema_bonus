@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Формуємо динамічне посилання для кнопки
 	function updateBonusLink() {
 		if (!bonusLinkEl) return;
-		const baseUrl = "https://vb.staaqwe.com/pt";
+		const baseUrl = "https://vb.staaqwe.com/pt/";
 		const match = window.location.search.match(
 			/p(\d+)p(\d+)p([\w\d]{4})(?:t(\d+))?(?:f(\d+))?(?:l(\d+))?([\w\d]+)?(\&subid=([\w\d]+))?/
 		);

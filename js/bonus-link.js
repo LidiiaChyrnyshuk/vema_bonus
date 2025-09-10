@@ -11,7 +11,7 @@ function generateBonusLink() {
 		newSearch = window.location.search.replace(match[0], "partner=" + match[0]);
 	}
 
-	const baseUrl = window.__REDIRECT_LINK || "https://vb.staaqwe.com/pt";
+	const baseUrl = window.__REDIRECT_LINK || "https://vb.staaqwe.com/pt/";
 	link.setAttribute("href", baseUrl + newSearch + "#registration");
 	return link.getAttribute("href");
 }
